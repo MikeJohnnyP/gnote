@@ -1,0 +1,43 @@
+# CMake build directories and generated files
+/build/
+/out/
+/cmake-build*/
+
+# CMake specific files and directories generated during the build
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+_deps/
+*.cmake.in
+*.gcno
+
+# Operating System specific files
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+# IDE specific files (optional, depends on team preference)
+# Visual Studio
+.vs/
+*.sln
+*.suo
+*.user
+*.vcxproj*
+
+# JetBrains (CLion, etc.)
+.idea/
+
+# VS Code
+.vscode/
+
+# imgui ini
+imgui.ini
+
+# IDE cache 
+/.cache/
+/.ccls-cache/
