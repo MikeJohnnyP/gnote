@@ -7,8 +7,11 @@
 #include <rlImGui.h>
 #include <rlImGuiColors.h>
 
+#include "Core/Logger/Logger.h"
+
 void initializeEngine() { // Initialization
   //--------------------------------------------------------------------------------------
+  Gnote::Logger::Init();
   int screenWidth = 1280;
   int screenHeight = 720;
 
