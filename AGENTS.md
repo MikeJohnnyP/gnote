@@ -1,30 +1,28 @@
 # AGENTS.md
 
 ## Build, Lint, and Test Commands
-- Build all: `cmake -S . -B build && cmake --build build`
-- Build single target: `cmake --build build --target <target>`
+- Build all targets: `cmake -S . -B build && cmake --build build`
+- Build a single target: `cmake --build build --target <target>`
 - Clean build: `rm -rf build && cmake -S . -B build`
 - Run executable: `./build/<target>` (e.g., `./build/Sandbox`)
-- Run single test (if tests exist): `ctest -R <testname>` from build directory
-- Lint: Use `clang-tidy` or `cppcheck` manually on source files
+- Run a single test: `ctest -R <testname>` (from build directory)
+- Lint: Run `clang-tidy` or `cppcheck` manually on source files
 
 ## Code Style Guidelines
-- Use C++20 standard (see CMakeLists.txt)
-- Prefer modern C++ features (auto, smart pointers, range-based for)
-- Place headers in `include/` or local to module
-- Use PascalCase for class names, camelCase for variables/functions
+- Use C++20 (see CMakeLists.txt)
+- Prefer modern C++: smart pointers, range-based for, `auto` (avoid in public APIs)
+- Place headers in `include/` or module-local directories
+- Naming: PascalCase for classes, camelCase for variables/functions
 - Namespace all code (avoid global namespace pollution)
-- Error handling: use exceptions for recoverable errors, assert for invariants
+- Error handling: use exceptions for recoverable errors, `assert` for invariants
 - Format code with `clang-format` (default style)
-- Group and order includes: standard, third-party, project
+- Include order: standard, third-party, then project headers
 - Avoid `using namespace std` in headers
-- Prefer explicit types over auto in public APIs
-- Document public functions/classes with Doxygen comments
+- Document public APIs with Doxygen comments
 
-## Special Rules
-- No Cursor or Copilot rules detected in this repository
-- If adding tests, use CTest integration via CMake
-- Keep CMakeLists.txt syntax valid and minimal; prefer target-based commands
-
----
-For more details, see CMakeLists.txt in root and subdirectories.
+## Agent Guidance
+- Strictly follow these conventions and commands
+- Prefer explicit, readable code and minimal dependencies
+- Add tests using CTest integration via CMake
+- Keep CMakeLists.txt minimal and target-based
+- See CMakeLists.txt in root and subdirectories for details

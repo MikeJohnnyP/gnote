@@ -3,6 +3,10 @@
 #
 cmake_minimum_required (VERSION 3.10)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
@@ -11,6 +15,10 @@ endif()
 
 project ("simple_noteapp")
 message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER_ID} (${CMAKE_CXX_COMPILER})")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/plugins)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Adding Raylib
 include(FetchContent)
@@ -32,3 +40,5 @@ FetchContent_MakeAvailable(raylib)
 add_subdirectory("Engine")
 add_subdirectory("Sandbox")
 add_subdirectory("Vendors/imgui")
+
+add_subdirectory("Modules/ImGuiModule")

@@ -9,14 +9,15 @@ add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 target_compile_definitions(${PROJECT_NAME} PUBLIC 
                          ON_GNOTE_ENGINE 
                          GNOTE_ENABLE_ASSERTS 
-                         DYNAMIC_LIB=0 
                          DYNAMIC_BUILD=0
+                         DYNAMIC_IMPORT=1
                          _DEBUG
                          )
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
                             ${CMAKE_CURRENT_SOURCE_DIR}
                             ${CMAKE_SOURCE_DIR}/Vendors/include
+                            ${CMAKE_SOURCE_DIR}/include
                             )
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Vendors/bin)
