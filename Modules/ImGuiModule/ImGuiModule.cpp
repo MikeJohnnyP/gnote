@@ -1,7 +1,11 @@
 #include "ex_pch.h"
 #include "modules/ImGuiModuleReload.h"
 
-void hello() { std::cout << "Hello from ImGuiModule here" << std::endl; };
+bool show_demo_window = true;
+bool show_another_window = false;
+
+void init() {}
+void hello() {};
 
 int add(int a, int b) { return a * b; }
 

@@ -11,14 +11,14 @@ project (glad LANGUAGES CXX)
 # Set the source files to a list
 set(
     source_list
-	"include/glad/glad.h"
+    "include/glad/glad.h"
     "src/glad.c"
 )	
 
 # Create executable file as project name
-add_library(${PROJECT_NAME} ${source_list})
+add_library(${PROJECT_NAME} STATIC ${source_list})
 
-target_include_directories(glad PRIVATE "${PROJECT_SOURCE_DIR}/include")
+target_include_directories(glad PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 
 

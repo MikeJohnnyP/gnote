@@ -1,4 +1,5 @@
 #pragma once
+#include <imgui.h>
 
 typedef void (*PluginHello)();
 typedef int (*PluginAdd)(int, int);

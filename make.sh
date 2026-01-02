@@ -2,7 +2,7 @@
 TARGET="Sandbox"
 case "$1" in
     "build")
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DGLFW_BUILD_WAYLAND=OFF -DGLFW_BUILD_X11=ON
         cmake --build build
         ;;
     "run")
@@ -15,7 +15,7 @@ case "$1" in
         ;;
     "clean build")
         rm -rf build
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DGLFW_BUILD_WAYLAND=OFF -DGLFW_BUILD_X11=ON
         cmake --build build
         ;;
     *)
