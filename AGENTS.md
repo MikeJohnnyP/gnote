@@ -26,3 +26,4 @@
 - Add tests using CTest integration via CMake
 - Keep CMakeLists.txt minimal and target-based
 - See CMakeLists.txt in root and subdirectories for details
+- No Cursor or Copilot rules present as of Jan 2026

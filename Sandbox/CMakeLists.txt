@@ -11,3 +11,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Engine)
 target_include_directories(${PROJECT_NAME} PRIVATE 
                             ${CMAKE_CURRENT_SOURCE_DIR} 
                             ${CMAKE_SOURCE_DIR}/Engine)
+
+file(COPY ${CMAKE_SOURCE_DIR}/Sandbox/
+     DESTINATION ${CMAKE_BINARY_DIR}/bin)

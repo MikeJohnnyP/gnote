@@ -11,8 +11,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(
     source_list
     "stb_image.h"
+    "stb_image.cpp"
     "stb_image_write.h"
 )
 
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME} INTERFACE source_list)
+# add_library(${PROJECT_NAME} INTERFACE)
+# target_include_directories(${PROJECT_NAME} INTERFACE source_list)
+
+add_library(${PROJECT_NAME} STATIC stb_image.cpp)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
