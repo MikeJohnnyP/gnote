@@ -22,14 +22,16 @@ bool Application::Init() {
   if (!m_window->Init()) {
     return false;
   }
+
+  // Renderer::Init();
+  Renderer2D::Init();
+
   ClientInit();
   m_window->SetFunctionCallback(GNOTE_EVENT_BIND(Application::OnEvent));
   m_isWindowClose = m_window->IsWindowClose();
 
   m_inputState = m_window->GetInputState();
 
-  Renderer::Init();
-  Renderer2D::Init();
   /*
       Hardware Info
   */
