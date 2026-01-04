@@ -1,6 +1,12 @@
 #pragma once
 
-enum class EKeyState { PRESSED, RELEASED, HELD, NONE };
+enum class EKeyState
+{
+    PRESSED,
+    RELEASED,
+    HELD,
+    NONE
+};
 
 #define GNOTE_KEY_SPACE 32
 #define GNOTE_KEY_APOSTROPHE 39 /* ' */

@@ -53,13 +53,14 @@
 #define DEBUG_BREAK() __builtin_trap()
 #define EXPORT_FN
 #endif
-#define GNOTE_EXMODULE_ASSERT(x, ...)                                          \
-  {                                                                            \
-    if (!(x)) {                                                                \
-      LOG_ERROR("Assertion Failed: {0}", __VA_ARGS__);                         \
-      DEBUG_BREAK();                                                           \
-    }                                                                          \
-  }
+#define GNOTE_EXMODULE_ASSERT(x, ...)                                                                                  \
+    {                                                                                                                  \
+        if (!(x))                                                                                                      \
+        {                                                                                                              \
+            LOG_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                                           \
+            DEBUG_BREAK();                                                                                             \
+        }                                                                                                              \
+    }
 #else
 #define GNOTE_EXMODULE_ASSERT(x, ...)
 #endif

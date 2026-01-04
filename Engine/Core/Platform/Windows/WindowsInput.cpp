@@ -3,81 +3,105 @@
 #include "pch.h"
 #include <GLFW/glfw3.h>
 
-namespace Gnote {
-WindowsKeyboardInput::WindowsKeyboardInput() {
-  window = static_cast<GLFWwindow *>(
-      Application::GetInstance()->GetWindow()->GetNativeWindow());
+namespace Gnote
+{
+WindowsKeyboardInput::WindowsKeyboardInput()
+{
+    window = static_cast<GLFWwindow *>(Application::GetInstance()->GetWindow()->GetNativeWindow());
 }
 
-WindowsKeyboardInput::~WindowsKeyboardInput() {}
-
-EKeyState WindowsKeyboardInput::GetState(int32_t keyCode) const {
-  int action = glfwGetKey(window, keyCode);
-  switch (action) {
-  case GLFW_PRESS: {
-    return EKeyState::PRESSED;
-    break;
-  }
-  case GLFW_RELEASE: {
-    return EKeyState::RELEASED;
-    break;
-  }
-  case GLFW_REPEAT: {
-    return EKeyState::HELD;
-    break;
-  }
-  default: {
-    return EKeyState::NONE;
-    break;
-  }
-  }
+WindowsKeyboardInput::~WindowsKeyboardInput()
+{
 }
 
-bool WindowsKeyboardInput::IsPressed(int32_t keyCode) const {
-  return glfwGetKey(window, keyCode) == GLFW_PRESS;
+EKeyState WindowsKeyboardInput::GetState(int32_t keyCode) const
+{
+    int action = glfwGetKey(window, keyCode);
+    switch (action)
+    {
+    case GLFW_PRESS:
+    {
+        return EKeyState::PRESSED;
+        break;
+    }
+    case GLFW_RELEASE:
+    {
+        return EKeyState::RELEASED;
+        break;
+    }
+    case GLFW_REPEAT:
+    {
+        return EKeyState::HELD;
+        break;
+    }
+    default:
+    {
+        return EKeyState::NONE;
+        break;
+    }
+    }
 }
 
-bool WindowsKeyboardInput::IsHeld(int32_t keyCode) const {
-  return glfwGetKey(window, keyCode) == GLFW_REPEAT;
+bool WindowsKeyboardInput::IsPressed(int32_t keyCode) const
+{
+    return glfwGetKey(window, keyCode) == GLFW_PRESS;
 }
 
-bool WindowsKeyboardInput::IsReleased(int32_t keyCode) const {
-  return glfwGetKey(window, keyCode) == GLFW_RELEASE;
+bool WindowsKeyboardInput::IsHeld(int32_t keyCode) const
+{
+    return glfwGetKey(window, keyCode) == GLFW_REPEAT;
 }
 
-WindowMouseInput::WindowMouseInput() {
-  window = static_cast<GLFWwindow *>(
-      Application::GetInstance()->GetWindow()->GetNativeWindow());
+bool WindowsKeyboardInput::IsReleased(int32_t keyCode) const
+{
+    return glfwGetKey(window, keyCode) == GLFW_RELEASE;
 }
 
-WindowMouseInput::~WindowMouseInput() {}
-
-EKeyState WindowMouseInput::GetState(int32_t keyCode) const {
-  int action = glfwGetMouseButton(window, keyCode);
-  switch (action) {
-  case GLFW_PRESS: {
-    return EKeyState::PRESSED;
-    break;
-  }
-  case GLFW_RELEASE: {
-    return EKeyState::RELEASED;
-    break;
-  }
-  default: {
-    return EKeyState::NONE;
-    break;
-  }
-  }
+WindowMouseInput::WindowMouseInput()
+{
+    window = static_cast<GLFWwindow *>(Application::GetInstance()->GetWindow()->GetNativeWindow());
 }
 
-bool WindowMouseInput::IsPressed(int32_t keyCode) const {
-  return glfwGetMouseButton(window, keyCode) == GLFW_PRESS;
+WindowMouseInput::~WindowMouseInput()
+{
 }
 
-bool WindowMouseInput::IsHeld(int32_t keyCode) const { return false; }
+EKeyState WindowMouseInput::GetState(int32_t keyCode) const
+{
+    int action = glfwGetMouseButton(window, keyCode);
+    switch (action)
+    {
+    case GLFW_PRESS:
+    {
+        return EKeyState::PRESSED;
+        break;
+    }
+    case GLFW_RELEASE:
+    {
+        return EKeyState::RELEASED;
+        break;
+    }
+    default:
+    {
+        return EKeyState::NONE;
+        break;
+    }
+    }
+}
 
-bool WindowMouseInput::IsReleased(int32_t keyCode) const {
-  return glfwGetMouseButton(window, keyCode) == GLFW_RELEASE;
+bool WindowMouseInput::IsPressed(int32_t keyCode) const
+{
+    return glfwGetMouseButton(window, keyCode) == GLFW_PRESS;
+}
+
+bool WindowMouseInput::IsHeld(int32_t keyCode) const
+{
+    return false;
+}
+
+bool WindowMouseInput::IsReleased(int32_t keyCode) const
+{
+    return glfwGetMouseButton(window, keyCode) == GLFW_RELEASE;
 }
 
 } // namespace Gnote

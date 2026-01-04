@@ -1,7 +1,12 @@
 #include "Layer.h"
 
-namespace Gnote {
-Layer::~Layer() {}
+namespace Gnote
+{
+Layer::~Layer()
+{
+}
 
-Layer::Layer(const std::string name) : m_DebugName(name) {}
+Layer::Layer(const std::string name) : m_DebugName(name)
+{
+}
 } // namespace Gnote

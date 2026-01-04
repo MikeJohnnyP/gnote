@@ -3,65 +3,44 @@
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace Gnote {
-class GNOTE_API Logger {
-public:
-  static void Init();
-  static inline std::shared_ptr<spdlog::logger> GetCoreLogger() {
-    return sCoreLogger;
-  }
-  static inline std::shared_ptr<spdlog::logger> GetClientLogger() {
-    return sClientLogger;
-  }
+namespace Gnote
+{
+class GNOTE_API Logger
+{
+  public:
+    static void Init();
+    static inline std::shared_ptr<spdlog::logger> GetCoreLogger()
+    {
+        return sCoreLogger;
+    }
+    static inline std::shared_ptr<spdlog::logger> GetClientLogger()
+    {
+        return sClientLogger;
+    }
 
-private:
-  static std::shared_ptr<spdlog::logger> sCoreLogger;
-  static std::shared_ptr<spdlog::logger> sClientLogger;
+  private:
+    static std::shared_ptr<spdlog::logger> sCoreLogger;
+    static std::shared_ptr<spdlog::logger> sClientLogger;
 };
 }; // namespace Gnote
 
-#define LOG_WITH_DETAILS(logger, level, ...)                                   \
-  logger->log(spdlog::source_loc{__FILE__, __LINE__, SPDLOG_FUNCTION}, level,  \
-              __VA_ARGS__)
+#define LOG_WITH_DETAILS(logger, level, ...)                                                                           \
+    logger->log(spdlog::source_loc{__FILE__, __LINE__, SPDLOG_FUNCTION}, level, __VA_ARGS__)
 
 #if _DEBUG
-#define CORE_LOG_TRACE(...)                                                    \
-  LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::trace,       \
-                   __VA_ARGS__)
-#define CORE_LOG_DEBUG(...)                                                    \
-  LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::debug,       \
-                   __VA_ARGS__)
-#define CORE_LOG_INFO(...)                                                     \
-  LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::info,        \
-                   __VA_ARGS__)
-#define CORE_LOG_WARN(...)                                                     \
-  LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::warn,        \
-                   __VA_ARGS__)
-#define CORE_LOG_ERROR(...)                                                    \
-  LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::err,         \
-                   __VA_ARGS__)
-#define CORE_LOG_CRITICAL(...)                                                 \
-  LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::critical,    \
-                   __VA_ARGS__)
+#define CORE_LOG_TRACE(...) LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::trace, __VA_ARGS__)
+#define CORE_LOG_DEBUG(...) LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::debug, __VA_ARGS__)
+#define CORE_LOG_INFO(...) LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::info, __VA_ARGS__)
+#define CORE_LOG_WARN(...) LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::warn, __VA_ARGS__)
+#define CORE_LOG_ERROR(...) LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::err, __VA_ARGS__)
+#define CORE_LOG_CRITICAL(...) LOG_WITH_DETAILS(Gnote::Logger::GetCoreLogger(), spdlog::level::critical, __VA_ARGS__)
 
-#define LOG_TRACE(...)                                                         \
-  LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::trace,     \
-                   __VA_ARGS__)
-#define LOG_DEBUG(...)                                                         \
-  LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::debug,     \
-                   __VA_ARGS__)
-#define LOG_INFO(...)                                                          \
-  LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::info,      \
-                   __VA_ARGS__)
-#define LOG_WARN(...)                                                          \
-  LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::warn,      \
-                   __VA_ARGS__)
-#define LOG_ERROR(...)                                                         \
-  LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::err,       \
-                   __VA_ARGS__)
-#define LOG_CRITICAL(...)                                                      \
-  LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::critical,  \
-                   __VA_ARGS__)
+#define LOG_TRACE(...) LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::trace, __VA_ARGS__)
+#define LOG_DEBUG(...) LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::debug, __VA_ARGS__)
+#define LOG_INFO(...) LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::info, __VA_ARGS__)
+#define LOG_WARN(...) LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::warn, __VA_ARGS__)
+#define LOG_ERROR(...) LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::err, __VA_ARGS__)
+#define LOG_CRITICAL(...) LOG_WITH_DETAILS(Gnote::Logger::GetClientLogger(), spdlog::level::critical, __VA_ARGS__)
 #else
 #define CORE_LOG_TRACE(...)
 #define CORE_LOG_DEBUG(...)
