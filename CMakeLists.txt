@@ -15,6 +15,7 @@ if (POLICY CMP0141)
 endif()
 
 project ("Gnote")
+
 message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER_ID} (${CMAKE_CXX_COMPILER})")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

@@ -38,7 +38,7 @@ void Renderer2D::Init()
     rendererData->VAO->SetIndexBuffer(m_EBO);
 
     rendererData->shader2D =
-        Shader::create("Shader", "./build/bin/DefaultShader/Vertex.glsl", "./build/bin/DefaultShader/Fragment.glsl");
+        Shader::create("Shader", "./DefaultShader/Vertex.glsl", "./DefaultShader/Fragment.glsl");
     rendererData->shader2D->Bind();
     rendererData->shader2D->SetInt("u_Texture", 0);
 

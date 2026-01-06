@@ -15,7 +15,7 @@ class Layer2D : public Gnote::Layer
     }
     virtual void OnAttach() override
     {
-        m_Texture = Gnote::Texture2D::Create("./build/bin/Assets/awesomeface.png");
+        m_Texture = Gnote::Texture2D::Create("./Assets/awesomeface.png");
     }
     virtual void OnDettach() override
     {

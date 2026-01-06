@@ -66,7 +66,7 @@ void *loadLibrary(const char *libraryPath)
     HMODULE handle = LoadLibraryA(libraryPath);
     if (!handle)
     {
-        CORE_LOG_ERROR("Cannot load library {0}: {1}", libraryPath, dlerror());
+        CORE_LOG_ERROR("Cannot load library {0}", libraryPath);
         GNOTE_CORE_ASSERT(handle, "");
         return nullptr;
     }
@@ -83,8 +83,8 @@ void *loadFunction(void *handle, const char *symbol)
     FARPROC func = GetProcAddress((HMODULE)handle, symbol);
     if (!func)
     {
-        CORE_LOG_ERROR("Cannot load symbol: {0}", dlsym_error);
-        GNOTE_CORE_ASSERT(!dlsym_error, "");
+        CORE_LOG_ERROR("Cannot load symbol: {0}");
+        GNOTE_CORE_ASSERT(false, "");
         return nullptr;
     }
     return (void *)func;

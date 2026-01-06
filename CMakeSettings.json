@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+
+      "cmakeCommandArgs": "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+
+      "variables": [
+        {
+          "name": "CMAKE_CXX_FLAGS",
+          "value": "/utf-8",
+          "type": "STRING"
+        }
+      ]
+    }
+  ]
+}

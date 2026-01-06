@@ -23,11 +23,14 @@ target_include_directories(${PROJECT_NAME} PUBLIC
                             )
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Vendors/bin)
-target_link_libraries(${PROJECT_NAME} PRIVATE imgui spdlog glfw glad stb_image OpenGL::GL)
+target_link_libraries(${PROJECT_NAME} PRIVATE imgui spdlogd glfw glad stb_image OpenGL::GL)
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC 
                     ${CMAKE_CURRENT_SOURCE_DIR}/pch.h
                     )
+if (MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
+endif()
 
 file(COPY ${CMAKE_SOURCE_DIR}/Engine/Core/DefaultShader
      DESTINATION ${CMAKE_BINARY_DIR}/bin)
