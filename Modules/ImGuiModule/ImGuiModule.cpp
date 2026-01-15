@@ -1,5 +1,6 @@
 #include "ex_pch.h"
 #include "modules/ImGuiModuleReload.h"
+#include <iostream>
 
 bool show_demo_window = true;
 bool show_another_window = false;
@@ -7,7 +8,10 @@ bool show_another_window = false;
 void init()
 {
 }
-void hello() {};
+void hello()
+{
+    std::cout << "Hello from ImGuiModuleAPI";
+};
 
 int add(int a, int b)
 {

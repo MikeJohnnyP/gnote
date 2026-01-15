@@ -1,6 +1,4 @@
-#include "pch.h"
 #include "Gnote.h"
-#include "GameLayer.h"
 #include "Layer2D.h"
 
 class SandBox : public Gnote::Application
@@ -10,7 +8,7 @@ class SandBox : public Gnote::Application
     bool ClientInit() override
     {
         PushLayer(m_Layer2D);
-
+        std::cout << "Sandbox Init" << std::endl;
         return true;
     }
 
