@@ -43,7 +43,9 @@ jobs:
           cmake --version
 
       - name: Configure (${{ matrix.preset }})
+        working-directory: .
         run: cmake --preset ${{ matrix.preset }}
 
       - name: Build (${{ matrix.preset }})
+        working-directory: .
         run: cmake --build --preset ${{ matrix.preset }}
