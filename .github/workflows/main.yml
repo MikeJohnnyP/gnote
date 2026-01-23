@@ -60,5 +60,4 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: gnote-${{ matrix.preset }}
           path: gnote-windows-${{ matrix.preset }}.zip
