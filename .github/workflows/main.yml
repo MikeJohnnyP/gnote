@@ -49,3 +49,16 @@ jobs:
       - name: Build (${{ matrix.preset }})
         working-directory: .
         run: cmake --build --preset ${{ matrix.preset }}
+      
+      - name: Zip build output
+        shell: pwsh
+        run: |
+            Compress-Archive `
+            -Path "build/${{ matrix.preset }}/bin/*" `
+            -DestinationPath "gnote-windows-${{ matrix.preset }}.zip"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gnote-${{ matrix.preset }}
+          path: gnote-windows-${{ matrix.preset }}.zip
