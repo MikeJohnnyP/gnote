@@ -5,6 +5,7 @@
 #include <windows.h>
 #else
 #include <dlfcn.h>
+#include <sys/stat.h>
 #endif
 
 namespace Gnote
