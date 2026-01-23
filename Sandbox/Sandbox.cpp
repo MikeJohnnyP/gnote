@@ -8,8 +8,7 @@ class SandBox : public Gnote::Application
     bool ClientInit() override
     {
         PushLayer(m_Layer2D);
-        LOG_INFO("Hello how are you {0}", 1);
-        // std::println("{}", 1);
+        LOG_INFO("Sandbox init {0}", 1);
         return true;
     }
 
