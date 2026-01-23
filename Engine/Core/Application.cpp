@@ -39,10 +39,10 @@ bool Application::Init()
     /*
         Hardware Info
     */
-    CORE_LOG_INFO("Vendor: {0}", (const char *)glGetString(GL_VENDOR));
-    CORE_LOG_INFO("Renderer: {0}", (const char *)glGetString(GL_RENDERER));
-    CORE_LOG_INFO("Version: {0}", (const char *)glGetString(GL_VERSION));
-    CORE_LOG_INFO("Shading Language: {0}", (const char *)glGetString(GL_SHADING_LANGUAGE_VERSION));
+    // CORE_LOG_INFO("Vendor: {0}", glGetString(GL_VENDOR));
+    // CORE_LOG_INFO("Renderer: {0}", glGetString(GL_RENDERER));
+    // CORE_LOG_INFO("Version: {0}", glGetString(GL_VERSION));
+    // CORE_LOG_INFO("Shading Language: {0}", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
     return true;
 }

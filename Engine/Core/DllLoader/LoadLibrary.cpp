@@ -83,7 +83,7 @@ void *loadFunction(void *handle, const char *symbol)
     FARPROC func = GetProcAddress((HMODULE)handle, symbol);
     if (!func)
     {
-        CORE_LOG_ERROR("Cannot load symbol: {0}");
+        CORE_LOG_ERROR("Cannot load symbol: {0}", symbol);
         GNOTE_CORE_ASSERT(false, "");
         return nullptr;
     }

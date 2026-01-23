@@ -1,3 +1,2 @@
 CompileFlags:
-  CompilationDatabase: out/build/x64-Debug
-
+  CompilationDatabase: build/clang-debug

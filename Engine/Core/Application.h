@@ -28,8 +28,12 @@ class GNOTE_API Application
     {
         return m_inputState;
     }
+
+    // ------ Singelton ----------
     Window *GetWindow();
     static Application *GetInstance();
+
+    // ------ Client defined ------
     virtual bool ClientInit() = 0;
     virtual bool ClientShutdown() = 0;
     virtual ~Application();

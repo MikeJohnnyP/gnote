@@ -218,7 +218,6 @@ bool OpenGLShader::Compile(std::unordered_map<uint32_t, std::string> Pairser)
         GLuint Shader = glCreateShader(shaderEnum);
 
         const GLchar *source = shaderString.c_str();
-        printf("shader source: %s\n", source);
         glShaderSource(Shader, 1, &source, 0);
 
         glCompileShader(Shader);

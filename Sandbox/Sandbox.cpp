@@ -1,5 +1,7 @@
 #include "Gnote.h"
 #include "Layer2D.h"
+#include "Core/Logger/LoggerEntry.h"
+#include <print>
 
 class SandBox : public Gnote::Application
 {
@@ -8,7 +10,8 @@ class SandBox : public Gnote::Application
     bool ClientInit() override
     {
         PushLayer(m_Layer2D);
-        std::cout << "Sandbox Init" << std::endl;
+        LOG_INFO("Hello how are you {0}", 1);
+        // std::println("{}", 1);
         return true;
     }
 
