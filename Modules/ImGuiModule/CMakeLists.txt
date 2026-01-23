@@ -22,6 +22,6 @@ target_compile_definitions(ImGuiModule PUBLIC
                          DYNAMIC_BUILD=1
                          GNOTE_EXMODULE_ENABLE_ASSERTS
                          DYNAMIC_IMPORT=0
-                         _DEBUG
                          )
+
 
