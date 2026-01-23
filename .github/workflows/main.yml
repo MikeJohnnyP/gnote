@@ -38,8 +38,8 @@ jobs:
       
       - name: Debug environment
         run: |
-          where cl
-          where ninja
+          cl --version
+          ninja --version
           cmake --version
 
       - name: Configure (${{ matrix.preset }})
@@ -56,6 +56,63 @@ jobs:
       #       Compress-Archive `
       #       -Path "build/${{ matrix.preset }}/bin/*" `
       #       -DestinationPath "gnote-windows-${{ matrix.preset }}.zip"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gnote-${{ matrix.preset }}
+          path: build/${{ matrix.preset }}/bin
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [linux-clang-release, linux-clang-debug]
+
+    steps:
+      - name: Checkout git
+        uses: actions/checkout@v4
+        with:
+          repository: MikeJohnnyP/gnote
+          submodules: true
+          lfs: true
+
+      - name: Get CMake and Ninja
+        uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: "~3.25.0"
+          ninjaVersion: "^1.11.1"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+          clang \
+          ninja-build \
+          libx11-dev \
+          libxrandr-dev \
+          libxinerama-dev \
+          libxcursor-dev \
+          libxi-dev \
+          mesa-common-dev \
+          libgl1-mesa-dev
+     
+      - name: Debug environment
+        run: |
+          clang --version
+          clang++ --version
+          ninja --version
+          cmake --version
+
+      - name: Configure (${{ matrix.preset }})
+        working-directory: .
+        run: cmake --preset ${{ matrix.preset }}
+
+      - name: Build (${{ matrix.preset }})
+        working-directory: .
+        run: cmake --build --preset ${{ matrix.preset }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
