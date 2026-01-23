@@ -8,7 +8,6 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
                          GNOTE_ENABLE_ASSERTS 
                          DYNAMIC_BUILD=0
                          DYNAMIC_IMPORT=1
-                         _DEBUG
                          )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
