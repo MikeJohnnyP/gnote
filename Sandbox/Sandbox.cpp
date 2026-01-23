@@ -1,7 +1,5 @@
 #include "Gnote.h"
 #include "Layer2D.h"
-#include "Core/Logger/LoggerEntry.h"
-#include <print>
 
 class SandBox : public Gnote::Application
 {
