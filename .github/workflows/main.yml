@@ -35,6 +35,12 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
+      
+      - name: Debug environment
+        run: |
+          where cl
+          where ninja
+          cmake --version
 
       - name: Configure (${{ matrix.preset }})
         run: cmake --preset ${{ matrix.preset }}
