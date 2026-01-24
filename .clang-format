@@ -2,8 +2,14 @@ BasedOnStyle: Microsoft
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
-ColumnLimit: 120
+ColumnLimit: 0
 AllowShortFunctionsOnASingleLine: None
 SortIncludes: false
 IncludeBlocks: Preserve
 BreakBeforeBraces: Allman
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIndentWidth: 4
+PointerAlignment: Left
+ReferenceAlignment: Left
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
