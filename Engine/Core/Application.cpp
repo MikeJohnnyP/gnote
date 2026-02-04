@@ -6,7 +6,6 @@
 #include "Input.h"
 #include "Logger/Logger.h"
 #include "pch.h"
-#include <glad/glad.h>
 
 namespace Gnote
 {
@@ -21,7 +20,7 @@ bool Application::Init()
     Logger::Init();
     CORE_LOG_INFO("Application Init Succesfully");
 
-    m_window = createWindow();
+    m_window = createWin32Window();
 
     if (!m_window->Init())
     {

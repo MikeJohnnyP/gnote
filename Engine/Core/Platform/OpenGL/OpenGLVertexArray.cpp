@@ -1,6 +1,7 @@
 #include "OpenGLVertexArray.h"
 #include "pch.h"
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#include "Core/OpenGLLoader.h"
 
 namespace Gnote
 {
@@ -58,27 +59,27 @@ void OpenGLVertexArray::Unbind() const
     glBindVertexArray(0);
 }
 
-void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer> &vertexBuffer)
+void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 {
     GNOTE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout");
     glBindVertexArray(m_VAO);
     vertexBuffer->Bind();
 
     uint32_t index = 0;
-    auto &layout = vertexBuffer->GetLayout();
-    for (auto &element : layout)
+    auto& layout = vertexBuffer->GetLayout();
+    for (auto& element : layout)
     {
         glEnableVertexAttribArray(index);
         glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type),
                               element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(),
-                              (const void *)element.Offset);
+                              (const void*)element.Offset);
         index++;
     }
 
     m_VertexBuffer.push_back(vertexBuffer);
 }
 
-void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer> &indexBuffer)
+void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 {
     glBindVertexArray(m_VAO);
     indexBuffer->Bind();

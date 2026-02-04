@@ -1,6 +1,7 @@
 #include "OpenGLRendererAPI.h"
 #include "pch.h"
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#include "Core/OpenGLLoader.h"
 
 namespace Gnote
 {
@@ -11,7 +12,7 @@ void OpenGLRendererAPI::Init() const
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void OpenGLRendererAPI::ClearColor(const glm::vec4 &color)
+void OpenGLRendererAPI::ClearColor(const glm::vec4& color)
 {
     glClearColor(color.r, color.b, color.g, color.a);
 }
@@ -21,12 +22,12 @@ void OpenGLRendererAPI::Clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray> &vertexArray)
+void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
 {
     glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 
-void OpenGLRendererAPI::DrawArrays(const Ref<VertexArray> &vertexArray)
+void OpenGLRendererAPI::DrawArrays(const Ref<VertexArray>& vertexArray)
 {
     glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetVertexBuffer().at(0)->GetCount());
 }

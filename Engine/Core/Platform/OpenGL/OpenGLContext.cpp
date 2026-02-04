@@ -7,7 +7,8 @@
 
 namespace Gnote
 {
-OpenGLContext::OpenGLContext(GLFWwindow *window) : m_WindowHandle(window)
+OpenGLContext::OpenGLContext(GLFWwindow* window)
+    : m_WindowHandle(window)
 {
     GNOTE_ASSERT(m_WindowHandle, "m_WindowHandle is null");
 }

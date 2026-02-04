@@ -3,7 +3,8 @@
 #include "Shader.h"
 #include "VertexArray.h"
 #include "pch.h"
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#include "Core/OpenGLLoader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -16,15 +17,15 @@ struct Renderer2DStorage
     Ref<Shader> shader2D;
 };
 
-static Renderer2DStorage *rendererData;
+static Renderer2DStorage* rendererData;
 void Renderer2D::Init()
 {
     rendererData = new Renderer2DStorage();
     float data[] = {
-        -0.5f, 0.5f,  0.0f, 0.0f, 1.0f, // top left
-        0.5f,  0.5f,  0.0f, 1.0f, 1.0f, // top right
+        -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,  // top left
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
         -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
-        0.5f,  -0.5f, 0.0f, 1.0f, 0.0f  // bottom right
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f   // bottom right
     };
     Ref<VertexBuffer> m_VBO = VertexBuffer::create(data, sizeof(data));
     BufferLayout m_Layout = {{ShaderDataType::Float3, "a_Pos"}, {ShaderDataType::Float2, "a_TextCord"}};
@@ -59,7 +60,7 @@ void Renderer2D::Resizing(uint32_t width, uint32_t height)
 {
     glViewport(0, 0, width, height);
 }
-void Renderer2D::BeginScene(const Camera &camera)
+void Renderer2D::BeginScene(const Camera& camera)
 {
     rendererData->shader2D->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 }
@@ -67,7 +68,7 @@ void Renderer2D::EndScene()
 {
 }
 
-void Renderer2D::DrawQuad(const glm::vec3 &position, const glm::vec2 &size, const Ref<Texture2D> &texture)
+void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 {
     rendererData->shader2D->Bind();
     rendererData->shader2D->SetVec4("u_Color", glm::vec4(1.0f));
@@ -82,12 +83,12 @@ void Renderer2D::DrawQuad(const glm::vec3 &position, const glm::vec2 &size, cons
     RenderCommand::DrawIndexed(rendererData->VAO);
 }
 
-void Renderer2D::DrawQuad(const glm::vec2 &position, const glm::vec2 &size, const Ref<Texture2D> &texture)
+void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 {
     DrawQuad(glm::vec3(position.x, position.y, 0.0f), size, texture);
 }
 
-void Renderer2D::DrawQuad(const glm::vec3 &position, const glm::vec2 &size, const glm::vec4 &color)
+void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 {
     rendererData->shader2D->Bind();
     rendererData->whiteTexture->Bind();
@@ -102,7 +103,7 @@ void Renderer2D::DrawQuad(const glm::vec3 &position, const glm::vec2 &size, cons
     RenderCommand::DrawIndexed(rendererData->VAO);
 }
 
-void Renderer2D::DrawQuad(const glm::vec2 &position, const glm::vec2 &size, const glm::vec4 &color)
+void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
 {
     DrawQuad(glm::vec3(position.x, position.y, 0.0f), size, color);
 }

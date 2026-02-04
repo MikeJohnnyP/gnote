@@ -1,11 +1,12 @@
 #include "OpenGLBuffer.h"
 #include "pch.h"
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#include "Core/OpenGLLoader.h"
 
 namespace Gnote
 {
 // OpenGL Vertex Buffer
-OpenGLVertexBuffer::OpenGLVertexBuffer(float *vertex, uint32_t size)
+OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertex, uint32_t size)
 {
     m_Count = size / sizeof(float);
     glGenBuffers(1, &m_VBO);
@@ -31,7 +32,7 @@ uint32_t OpenGLVertexBuffer::GetCount()
 }
 
 // OpenGL Index Buffer
-OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *indicies, uint32_t count)
+OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indicies, uint32_t count)
 {
     glGenBuffers(1, &m_EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);

@@ -1,14 +1,19 @@
 #include "OpenGLTexture.h"
 #include "Core/Logger/Logger.h"
 #include <stb_image.h>
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#include "Core/OpenGLLoader.h"
 
 namespace Gnote
 {
-OpenGLTexture::OpenGLTexture(const std::string &filePath) : m_Width(0), m_Height(0), m_Channels(0), m_Data(nullptr)
+OpenGLTexture::OpenGLTexture(const std::string& filePath)
+    : m_Width(0)
+    , m_Height(0)
+    , m_Channels(0)
+    , m_Data(nullptr)
 {
     stbi_set_flip_vertically_on_load(1);
-    stbi_uc *data = stbi_load(filePath.c_str(), &m_Width, &m_Height, &m_Channels, 0);
+    stbi_uc* data = stbi_load(filePath.c_str(), &m_Width, &m_Height, &m_Channels, 0);
     if (!data)
     {
         CORE_LOG_ERROR("stb_image error: %s", stbi_failure_reason());
@@ -54,7 +59,10 @@ OpenGLTexture::OpenGLTexture(const std::string &filePath) : m_Width(0), m_Height
 }
 
 OpenGLTexture::OpenGLTexture(uint32_t width, uint32_t height)
-    : m_Width(width), m_Height(height), m_Channels(0), m_Data(nullptr)
+    : m_Width(width)
+    , m_Height(height)
+    , m_Channels(0)
+    , m_Data(nullptr)
 {
     m_InternalFormat = GL_RGBA8;
     m_DataFormat = GL_RGBA;
@@ -67,7 +75,7 @@ OpenGLTexture::OpenGLTexture(uint32_t width, uint32_t height)
     glTextureParameteri(m_TextureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
-void OpenGLTexture::SetData(void *data, uint32_t size)
+void OpenGLTexture::SetData(void* data, uint32_t size)
 {
     // OpenGL 4.5
     // uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;

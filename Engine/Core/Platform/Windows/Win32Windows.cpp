@@ -191,7 +191,7 @@ void Win32Windows::PollEvent()
 }
 bool Win32Windows::IsWindowClose()
 {
-    return IsWindow(m_hWnd);
+    return !IsWindow(m_hWnd);
 }
 bool Win32Windows::IsVsyncEnable()
 {

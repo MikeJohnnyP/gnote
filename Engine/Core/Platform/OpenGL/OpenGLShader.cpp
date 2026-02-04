@@ -1,12 +1,13 @@
 #include "OpenGLShader.h"
 #include "Core/Logger/Logger.h"
 #include "pch.h"
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#include "Core/OpenGLLoader.h"
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Gnote
 {
-OpenGLShader::OpenGLShader(const std::string name, const std::string &vertexPath, const std::string &fragmentPath)
+OpenGLShader::OpenGLShader(const std::string name, const std::string& vertexPath, const std::string& fragmentPath)
     : m_Name(name)
 {
     // GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -120,7 +121,8 @@ OpenGLShader::OpenGLShader(const std::string name, const std::string &vertexPath
     Compile(source);
 }
 
-OpenGLShader::OpenGLShader(const std::string &name, const std::string &filePath) : m_Name(name)
+OpenGLShader::OpenGLShader(const std::string& name, const std::string& filePath)
+    : m_Name(name)
 {
     std::string wholeFile = ReadFile(filePath);
     std::unordered_map<uint32_t, std::string> pairShader = Pairser(wholeFile);
@@ -146,37 +148,37 @@ std::string OpenGLShader::GetName() const
     return m_Name;
 }
 
-void OpenGLShader::UniformMat4(const std::string &uniformName, const glm::mat4 &value)
+void OpenGLShader::UniformMat4(const std::string& uniformName, const glm::mat4& value)
 {
     int location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void OpenGLShader::UniformVec3(const std::string &uniformName, const glm::vec3 &value)
+void OpenGLShader::UniformVec3(const std::string& uniformName, const glm::vec3& value)
 {
     int location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
     glUniform3f(location, value.x, value.y, value.z);
 }
 
-void OpenGLShader::UniformFloat(const std::string &uniformName, const float value)
+void OpenGLShader::UniformFloat(const std::string& uniformName, const float value)
 {
     int location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
     glUniform1f(location, value);
 }
 
-void OpenGLShader::UniformInt(const std::string &uniformName, const int value)
+void OpenGLShader::UniformInt(const std::string& uniformName, const int value)
 {
     int location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
     glUniform1i(location, value);
 }
 
-void OpenGLShader::UniformVec4(const std::string &uniformName, const glm::vec4 &value)
+void OpenGLShader::UniformVec4(const std::string& uniformName, const glm::vec4& value)
 {
     int location = glGetUniformLocation(m_ProgramID, uniformName.c_str());
     glUniform4f(location, value.r, value.g, value.b, value.a);
 }
 
-std::string OpenGLShader::ReadFile(const std::string &filePath)
+std::string OpenGLShader::ReadFile(const std::string& filePath)
 {
     std::string result;
     std::ifstream in(filePath, std::ios::in | std::ios::binary);
@@ -197,10 +199,10 @@ std::string OpenGLShader::ReadFile(const std::string &filePath)
     return result;
 }
 
-std::unordered_map<uint32_t, std::string> OpenGLShader::Pairser(std::string &file)
+std::unordered_map<uint32_t, std::string> OpenGLShader::Pairser(std::string& file)
 {
     std::unordered_map<uint32_t, std::string> result;
-    const char *typeToken = "#type";
+    const char* typeToken = "#type";
     size_t typeLen = strlen(typeToken);
     size_t pos = file.find(typeToken, 0);
     return result;
@@ -210,14 +212,14 @@ bool OpenGLShader::Compile(std::unordered_map<uint32_t, std::string> Pairser)
 {
     std::array<uint32_t, 2> shaderSourse;
     uint32_t count = 0;
-    for (auto &shader : Pairser)
+    for (auto& shader : Pairser)
     {
-        auto &shaderEnum = shader.first;
-        auto &shaderString = shader.second;
+        auto& shaderEnum = shader.first;
+        auto& shaderString = shader.second;
 
         GLuint Shader = glCreateShader(shaderEnum);
 
-        const GLchar *source = shaderString.c_str();
+        const GLchar* source = shaderString.c_str();
         glShaderSource(Shader, 1, &source, 0);
 
         glCompileShader(Shader);
@@ -251,7 +253,7 @@ bool OpenGLShader::Compile(std::unordered_map<uint32_t, std::string> Pairser)
 
     // Note the different functions here: glGetProgram* instead of glGetShader*.
     GLint isLinked = 0;
-    glGetProgramiv(program, GL_LINK_STATUS, (int *)&isLinked);
+    glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
     if (isLinked == GL_FALSE)
     {
         GLint maxLength = 0;

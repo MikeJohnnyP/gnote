@@ -12,6 +12,7 @@
     DO(PFNGLDELETESHADERPROC, glDeleteShader)                                               \
     DO(PFNGLSHADERSOURCEPROC, glShaderSource)                                               \
     DO(PFNGLCOMPILESHADERPROC, glCompileShader)                                             \
+    DO(PFNGLDETACHSHADERPROC, glDetachShader)                                               \
     DO(PFNGLGETSHADERIVPROC, glGetShaderiv)                                                 \
     DO(PFNGLGETPROGRAMIVPROC, glGetProgramiv)                                               \
     DO(PFNGLCREATEPROGRAMPROC, glCreateProgram)                                             \
@@ -34,6 +35,8 @@
     DO(PFNGLUNIFORM3FVPROC, glUniform3fv)                                                   \
     DO(PFNGLUNIFORM1IPROC, glUniform1i)                                                     \
     DO(PFNGLUNIFORM1FPROC, glUniform1f)                                                     \
+    DO(PFNGLUNIFORM3FPROC, glUniform3f)                                                     \
+    DO(PFNGLUNIFORM4FPROC, glUniform4f)                                                     \
     DO(PFNGLCREATEBUFFERSPROC, glCreateBuffers)                                             \
     DO(PFNGLNAMEDBUFFERSTORAGEPROC, glNamedBufferStorage)                                   \
     DO(PFNGLCREATEVERTEXARRAYSPROC, glCreateVertexArrays)                                   \
@@ -81,6 +84,8 @@
     DO(PFNGLMULTIDRAWARRAYSINDIRECTPROC, glMultiDrawArraysIndirect)                         \
     DO(PFNGLMULTIDRAWELEMENTSINDIRECTPROC, glMultiDrawElementsIndirect)                     \
     DO(PFNGLMAPNAMEDBUFFERRANGEPROC, glMapNamedBufferRange)                                 \
+    DO(PFNGLTEXTUREPARAMETERIPROC, glTextureParameteri)                                     \
+    DO(PFNGLACTIVETEXTUREPROC, glActiveTexture)                                             \
     DO(PFNGLUNMAPNAMEDBUFFERPROC, glUnmapNamedBuffer)
 
 #define DO_DEFINE(TYPE, NAME) inline TYPE NAME;

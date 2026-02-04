@@ -24,7 +24,7 @@
 #include "Core/OrthograhicCameraController.h"
 
 //_______Entry Point_______
-// #include "EntryPoint.h"
+#include "EntryPoint.h"
 //_________________________
 
 #define Input Gnote::Application::GetInstance()->GetInputState()
