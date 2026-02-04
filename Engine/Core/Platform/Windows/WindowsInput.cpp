@@ -7,7 +7,7 @@ namespace Gnote
 {
 WindowsKeyboardInput::WindowsKeyboardInput()
 {
-    window = static_cast<GLFWwindow *>(Application::GetInstance()->GetWindow()->GetNativeWindow());
+    window = static_cast<GLFWwindow*>(Application::GetInstance()->GetWindow()->GetNativeWindow());
 }
 
 WindowsKeyboardInput::~WindowsKeyboardInput()
@@ -59,7 +59,7 @@ bool WindowsKeyboardInput::IsReleased(int32_t keyCode) const
 
 WindowMouseInput::WindowMouseInput()
 {
-    window = static_cast<GLFWwindow *>(Application::GetInstance()->GetWindow()->GetNativeWindow());
+    window = static_cast<GLFWwindow*>(Application::GetInstance()->GetWindow()->GetNativeWindow());
 }
 
 WindowMouseInput::~WindowMouseInput()

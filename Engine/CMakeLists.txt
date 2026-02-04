@@ -4,14 +4,16 @@ file(GLOB_RECURSE SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp CMAKE_CONFIGURE_DE
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC 
-                         ON_GNOTE_ENGINE 
-                         GNOTE_ENABLE_ASSERTS 
+                         ON_GNOTE_ENGINE
+                         GNOTE_ENABLE_ASSERTS
                          DYNAMIC_BUILD=0
                          DYNAMIC_IMPORT=1
+                         NOMINMAX
                          )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
                             ${CMAKE_CURRENT_SOURCE_DIR}
+                            ${CMAKE_SOURCE_DIR}/Vendors/include
                             ${CMAKE_SOURCE_DIR}/Vendors/glfw/include
                             ${CMAKE_SOURCE_DIR}/Vendors/imgui
                             ${CMAKE_SOURCE_DIR}/Vendors/glad/include

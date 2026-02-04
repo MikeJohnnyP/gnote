@@ -14,10 +14,10 @@ class OrthographicCameraController
     OrthographicCameraController(float aspectRatio, bool rotation, bool mouseControl);
     virtual ~OrthographicCameraController();
 
-    void OnUpdate(TimeSteps &ts);
-    void OnEvent(Event &e);
+    void OnUpdate(TimeSteps& ts);
+    void OnEvent(Event& e);
 
-    const OrthographicCamera &GetCamera() const
+    inline const OrthographicCamera& GetCamera() const
     {
         return m_Camera;
     }
@@ -35,9 +35,9 @@ class OrthographicCameraController
     }
 
   private:
-    bool MouseScrollZoom(MouseScroll &e);
-    bool MouseCameraControl(MouseMoved &e);
-    bool WindowResize(WindowResizeEvent &e);
+    bool MouseScrollZoom(MouseScroll& e);
+    bool MouseCameraControl(MouseMoved& e);
+    bool WindowResize(WindowResizeEvent& e);
 
   private:
     bool m_IsRotate;

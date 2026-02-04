@@ -11,24 +11,24 @@
 
 namespace Gnote
 {
-KeyInputPlatform *createKeyInput()
+KeyInputPlatform* createKeyInput()
 {
     return new WindowsKeyboardInput();
 }
-MouseInputPlatform *createMouseInput()
+MouseInputPlatform* createMouseInput()
 {
     return new WindowMouseInput();
 }
 
 static bool GLFWInitialize = false;
 
-Window *createWindow()
+Window* createWindow()
 {
     WindowSpec spec = Gnote::createSpec();
     return new WindowsWindow(spec);
 }
 
-WindowsWindow::WindowsWindow(WindowSpec &spec)
+WindowsWindow::WindowsWindow(WindowSpec& spec)
 {
     m_data.width = spec.width;
     m_data.height = spec.height;
@@ -75,12 +75,12 @@ bool WindowsWindow::Init()
         glfwSwapInterval(0);
     }
 
-    glfwSetWindowUserPointer(m_GLFWwindow, (void *)&m_data);
+    glfwSetWindowUserPointer(m_GLFWwindow, (void*)&m_data);
 
     glfwSetWindowSizeCallback(m_GLFWwindow,
-                              [](GLFWwindow *window, int width, int height)
+                              [](GLFWwindow* window, int width, int height)
                               {
-                                  WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+                                  WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                                   data.width = static_cast<unsigned int>(width);
                                   data.height = static_cast<unsigned int>(height);
                                   WindowResizeEvent e((unsigned int)data.width, (unsigned int)data.height);
@@ -89,9 +89,9 @@ bool WindowsWindow::Init()
 
     static bool firstStart = true;
     glfwSetCursorPosCallback(m_GLFWwindow,
-                             [](GLFWwindow *window, double xpos, double ypos)
+                             [](GLFWwindow* window, double xpos, double ypos)
                              {
-                                 WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+                                 WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
                                  static double LastFrameX = xpos;
                                  static double LastFrameY = ypos;
@@ -110,9 +110,9 @@ bool WindowsWindow::Init()
                              });
 
     glfwSetKeyCallback(m_GLFWwindow,
-                       [](GLFWwindow *window, int key, int scancode, int action, int mods)
+                       [](GLFWwindow* window, int key, int scancode, int action, int mods)
                        {
-                           WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+                           WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                            switch (action)
                            {
                            case GLFW_PRESS:
@@ -137,9 +137,9 @@ bool WindowsWindow::Init()
                        });
 
     glfwSetMouseButtonCallback(m_GLFWwindow,
-                               [](GLFWwindow *window, int button, int action, int mods)
+                               [](GLFWwindow* window, int button, int action, int mods)
                                {
-                                   WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+                                   WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                                    switch (action)
                                    {
                                    case GLFW_PRESS:
@@ -158,18 +158,18 @@ bool WindowsWindow::Init()
                                });
 
     glfwSetScrollCallback(m_GLFWwindow,
-                          [](GLFWwindow *window, double xoffset, double yoffset)
+                          [](GLFWwindow* window, double xoffset, double yoffset)
                           {
-                              WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+                              WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                               data.inputState.Mouse->SetScroll((float)xoffset, (float)yoffset);
                               MouseScroll e((float)xoffset, (float)yoffset);
                               data.callback(e);
                           });
 
     glfwSetCharCallback(m_GLFWwindow,
-                        [](GLFWwindow *window, unsigned int codepoint)
+                        [](GLFWwindow* window, unsigned int codepoint)
                         {
-                            WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+                            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
                             KeyTyped e(codepoint);
                             data.callback(e);
                         });
@@ -196,17 +196,17 @@ bool WindowsWindow::IsVsyncEnable()
 {
     return m_data.vSync;
 }
-void WindowsWindow::SetFunctionCallback(const EventFn &callback)
+void WindowsWindow::SetFunctionCallback(const EventFn& callback)
 {
     m_data.callback = callback;
 }
 
-void *WindowsWindow::GetNativeWindow()
+void* WindowsWindow::GetNativeWindow()
 {
-    return (void *)m_GLFWwindow;
+    return (void*)m_GLFWwindow;
 }
 
-InputState *WindowsWindow::GetInputState()
+InputState* WindowsWindow::GetInputState()
 {
     return &m_data.inputState;
 }

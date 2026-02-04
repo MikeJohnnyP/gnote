@@ -54,21 +54,21 @@
 #define DEBUG_BREAK() __builtin_trap()
 #define EXPORT_FN
 #endif
-#define GNOTE_ASSERT(x, ...)                                                                                           \
-    {                                                                                                                  \
-        if (!(x))                                                                                                      \
-        {                                                                                                              \
-            LOG_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                                           \
-            DEBUG_BREAK();                                                                                             \
-        }                                                                                                              \
+#define GNOTE_ASSERT(x, ...)                                 \
+    {                                                        \
+        if (!(x))                                            \
+        {                                                    \
+            LOG_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
+            DEBUG_BREAK();                                   \
+        }                                                    \
     }
-#define GNOTE_CORE_ASSERT(x, ...)                                                                                      \
-    {                                                                                                                  \
-        if (!(x))                                                                                                      \
-        {                                                                                                              \
-            CORE_LOG_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                                      \
-            DEBUG_BREAK();                                                                                             \
-        }                                                                                                              \
+#define GNOTE_CORE_ASSERT(x, ...)                                 \
+    {                                                             \
+        if (!(x))                                                 \
+        {                                                         \
+            CORE_LOG_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
+            DEBUG_BREAK();                                        \
+        }                                                         \
     }
 #else
 #define GNOTE_ASSERT(x, ...)
@@ -81,6 +81,20 @@
 
 namespace Gnote
 {
-template <typename T> using Ref = std::shared_ptr<T>;
-template <typename T> using Scope = std::unique_ptr<T>;
+template <typename T>
+using Ref = std::shared_ptr<T>;
+template <typename T>
+using Scope = std::unique_ptr<T>;
+
+template <typename T, typename... Args>
+Ref<T> createRef(Args&&... args)
+{
+    return std::make_shared<T>(std::forward<Args>(args)...);
+}
+
+template <typename T, typename... Args>
+Scope<T> createScope(Args&&... args)
+{
+    return std::make_unique<T>(std::forward<Args>(args)...);
+}
 } // namespace Gnote

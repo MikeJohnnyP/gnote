@@ -1,12 +1,19 @@
 #include "Win32Windows.h"
+#include "Core/InputPlatform.h"
 #include "Core/Logger/Logger.h"
-#include <cstddef>
-#include <errhandlingapi.h>
-#include <string>
-#include <winuser.h>
+#include "Core/Platform/Windows/Win32Input.h"
+#include "Core/Platform/Windows/Win32OpenGLContext.h"
+#include "Core/Window.h"
+#include "pch.h"
 
 namespace Gnote
 {
+
+Window* createWin32Window()
+{
+    WindowSpec spec = Gnote::createSpec();
+    return new Win32Windows(spec);
+}
 
 LRESULT WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -59,12 +66,12 @@ LRESULT WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
     {
         // Paint all the area again.
-        PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hWnd, &ps);
-        SetDCBrushColor(hdc, RGB(10, 20, 30));
-        // All painting occurs here, between BeginPaint and EndPaint.
-        FillRect(hdc, &ps.rcPaint, (HBRUSH)(GetStockObject(DC_BRUSH)));
-        EndPaint(hWnd, &ps);
+        // PAINTSTRUCT ps;
+        // HDC hdc = BeginPaint(hWnd, &ps);
+        // SetDCBrushColor(hdc, RGB(10, 20, 30));
+        // // All painting occurs here, between BeginPaint and EndPaint.
+        // FillRect(hdc, &ps.rcPaint, (HBRUSH)(GetStockObject(DC_BRUSH)));
+        // EndPaint(hWnd, &ps);
         break;
     }
     case WM_CLOSE:
@@ -90,7 +97,14 @@ Win32Windows::Win32Windows(const WindowSpec& spec)
 
 bool Win32Windows::Init()
 {
+    m_hInstance = GetModuleHandleW(nullptr);
+    if (!m_hInstance)
+    {
+        GNOTE_CORE_ASSERT(m_hInstance, "Cannot get handle for instance");
+        return false;
+    }
     WNDCLASSEXW wndClass = {};
+    wndClass.style = CS_OWNDC;
     wndClass.cbSize = sizeof(WNDCLASSEXW);
     wndClass.lpszClassName = m_ClassName.c_str();
     wndClass.hInstance = m_hInstance;
@@ -116,16 +130,16 @@ bool Win32Windows::Init()
 
     if (!RegisterClassExW(&wndClass))
     {
-        CORE_LOG_ERROR("ERROR when register wndClass with error code {}", GetLastError());
+        GNOTE_ASSERT("ERROR when register wndClass with error code {}", GetLastError());
         return GetLastError();
     }
 
     m_Win32Data.Width = rect.right - rect.left;
     m_Win32Data.Height = rect.top - rect.bottom;
-    CORE_LOG_INFO("WIDTH & HEIGHT of Rect: {}\{}", m_Win32Data.Width, m_Win32Data.Height);
+    CORE_LOG_INFO("WIDTH & HEIGHT of Rect: {}\\{}", m_Win32Data.Width, m_Win32Data.Height);
 
     m_hWnd = CreateWindowExW(
-        0,
+        WS_EX_OVERLAPPEDWINDOW | WS_EX_APPWINDOW,
         m_ClassName.c_str(),
         std::wstring(m_Win32Data.Title.begin(), m_Win32Data.Title.end()).c_str(),
         style,
@@ -140,9 +154,20 @@ bool Win32Windows::Init()
 
     if (!m_hWnd)
     {
-        CORE_LOG_ERROR("ERROR when create window with error code {}", GetLastError());
+        GNOTE_CORE_ASSERT(!m_hWnd, "ERROR when create window with error code {}", GetLastError());
         return GetLastError();
     }
+
+    m_hDC = GetDC(m_hWnd);
+    if (!m_hDC)
+    {
+        GNOTE_CORE_ASSERT(m_hDC, "ERROR when get device context with error code {}", GetLastError());
+        return GetLastError();
+    }
+
+    m_Win32Data.InputState = CreateInputState();
+    m_context = new Win32OpenGLContext{m_hInstance, m_hDC};
+    m_context->Init();
 
     ShowWindow(m_hWnd, SW_SHOW);
 
@@ -150,12 +175,14 @@ bool Win32Windows::Init()
 }
 void Win32Windows::Shutdown()
 {
+    ReleaseDC(m_hWnd, m_hDC);
     DestroyWindow(m_hWnd);
     PostQuitMessage(0);
     UnregisterClassW(m_ClassName.c_str(), m_hInstance);
 }
 void Win32Windows::SwapBuffer()
 {
+    m_context->SwapBuffer();
 }
 void Win32Windows::PollEvent()
 {
@@ -172,6 +199,7 @@ bool Win32Windows::IsVsyncEnable()
 }
 void Win32Windows::SetFunctionCallback(const EventFn& callback)
 {
+    m_Win32Data.Callback = callback;
 }
 void* Win32Windows::GetNativeWindow()
 {
@@ -187,7 +215,7 @@ float Win32Windows::GetTimeMiliSeconds()
 }
 InputState* Win32Windows::GetInputState()
 {
-    return nullptr;
+    return &m_Win32Data.InputState;
 }
 
 bool Win32Windows::ProcessMessagesQueue()
@@ -202,5 +230,13 @@ bool Win32Windows::ProcessMessagesQueue()
     }
 
     return true;
+}
+
+InputState Win32Windows::CreateInputState()
+{
+    InputState state;
+    state.Keyboard = new Win32KeyboardInput();
+    state.Mouse = new Win32MouseInput();
+    return state;
 }
 } // namespace Gnote

@@ -4,6 +4,7 @@
 
 #include "pch.h"
 
+#include "Core/Renderer/GraphicsContext.h"
 #include "Core/Window.h"
 
 namespace Gnote
@@ -25,11 +26,15 @@ class GNOTE_API Win32Windows : public Window
     virtual float GetTimeMiliSeconds();
     virtual InputState* GetInputState();
 
-    bool ProcessMessagesQueue();
-
   private:
+    bool ProcessMessagesQueue();
+    InputState CreateInputState();
+
+    GraphicsContext* m_context;
+
     HINSTANCE m_hInstance;
     HWND m_hWnd;
+    HDC m_hDC;
     const std::wstring m_ClassName = L"GnoteWindowClass";
 
     // Windows settings specific
@@ -38,8 +43,12 @@ class GNOTE_API Win32Windows : public Window
         uint32_t Width, Height;
         std::string Title;
         bool Vsync = false;
+        EventFn Callback;
+        InputState InputState;
     };
 
     Win32Data m_Win32Data;
 };
+
+Window* CreateWin32Window();
 } // namespace Gnote

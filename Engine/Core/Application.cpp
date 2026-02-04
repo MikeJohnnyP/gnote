@@ -2,6 +2,7 @@
 #include "Core/Renderer/Renderer.h"
 #include "Core/Renderer/Renderer2D.h"
 #include "Core/TimeSteps.h"
+#include "Core/Window.h"
 #include "Input.h"
 #include "Logger/Logger.h"
 #include "pch.h"
@@ -9,7 +10,7 @@
 
 namespace Gnote
 {
-Application *Application::s_instance = nullptr;
+Application* Application::s_instance = nullptr;
 
 bool Application::Init()
 {
@@ -36,14 +37,6 @@ bool Application::Init()
 
     m_inputState = m_window->GetInputState();
 
-    /*
-        Hardware Info
-    */
-    // CORE_LOG_INFO("Vendor: {0}", glGetString(GL_VENDOR));
-    // CORE_LOG_INFO("Renderer: {0}", glGetString(GL_RENDERER));
-    // CORE_LOG_INFO("Version: {0}", glGetString(GL_VERSION));
-    // CORE_LOG_INFO("Shading Language: {0}", glGetString(GL_SHADING_LANGUAGE_VERSION));
-
     return true;
 }
 
@@ -58,7 +51,7 @@ void Application::Run()
         TimeSteps ts = currentTime - lastTime;
 
         m_window->SwapBuffer();
-        for (Layer *layer : m_LayerStack)
+        for (Layer* layer : m_LayerStack)
         {
             layer->OnUpdate(ts);
         }
@@ -73,7 +66,7 @@ void Application::Shutdown()
     ClientShutdown();
 }
 
-void Application::OnEvent(Event &event)
+void Application::OnEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
     dispatcher.Dispatcher<KeyPressed>(GNOTE_EVENT_BIND(Application::WindowClose));
@@ -86,36 +79,36 @@ void Application::OnEvent(Event &event)
     }
 }
 
-void Application::PushLayer(Layer *layer)
+void Application::PushLayer(Layer* layer)
 {
     m_LayerStack.PushLayer(layer);
     layer->OnAttach();
 }
 
-void Application::PushOverlay(Layer *overlay)
+void Application::PushOverlay(Layer* overlay)
 {
     m_LayerStack.PushOverlay(overlay);
     overlay->OnAttach();
 }
 
-void Application::PopLayer(Layer *layer)
+void Application::PopLayer(Layer* layer)
 {
     m_LayerStack.PopLayer(layer);
     layer->OnDettach();
 }
 
-void Application::PopOverlay(Layer *overlay)
+void Application::PopOverlay(Layer* overlay)
 {
     m_LayerStack.PopOverlay(overlay);
     overlay->OnDettach();
 }
 
-Window *Application::GetWindow()
+Window* Application::GetWindow()
 {
     return m_window;
 }
 
-Application *Application::GetInstance()
+Application* Application::GetInstance()
 {
     return s_instance;
 }
@@ -123,7 +116,7 @@ Application *Application::GetInstance()
 Application::~Application()
 {
 }
-bool Application::WindowClose(KeyPressed &event)
+bool Application::WindowClose(KeyPressed& event)
 {
     if (m_inputState->Keyboard->IsPressed(GNOTE_KEY_ESCAPE))
     {
@@ -132,7 +125,7 @@ bool Application::WindowClose(KeyPressed &event)
     return true;
 }
 
-bool Application::WindowResize(WindowResizeEvent &event)
+bool Application::WindowResize(WindowResizeEvent& event)
 {
     Renderer::Resizing(event.GetWidth(), event.GetHeight());
     return false;
