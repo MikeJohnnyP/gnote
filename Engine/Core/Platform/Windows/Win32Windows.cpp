@@ -8,13 +8,6 @@
 
 namespace Gnote
 {
-
-Window* createWin32Window()
-{
-    WindowSpec spec = Gnote::createSpec();
-    return new Win32Windows(spec);
-}
-
 LRESULT WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)

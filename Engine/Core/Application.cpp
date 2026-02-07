@@ -20,7 +20,7 @@ bool Application::Init()
     Logger::Init();
     CORE_LOG_INFO("Application Init Succesfully");
 
-    m_window = createWin32Window();
+    m_window = createWindow();
 
     if (!m_window->Init())
     {

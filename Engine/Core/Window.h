@@ -34,6 +34,5 @@ class GNOTE_API Window
     Window() = default;
 };
 extern Window* createWindow();
-extern Window* createWin32Window();
 WindowSpec createSpec();
 } // namespace Gnote
