@@ -1,0 +1,10 @@
+[
+  {
+    "label": "Debug native binary",
+    "build": "clang-cl-debug-build",
+    "program": "$ZED_WORKTREE_ROOT/build/clang-cl-debug/bin/Sandbox.exe",
+    "request": "launch",
+    "cwd": "$ZED_WORKTREE_ROOT/build/msvc-debug/bin",
+    "adapter": "CodeLLDB",
+  },
+]

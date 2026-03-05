@@ -105,6 +105,14 @@
     {
       "name": "msvc-release",
       "configurePreset": "msvc-release"
+    },
+    {
+      "name": "clang-cl-release",
+      "configurePreset": "clang-cl-release"
+    },
+    {
+      "name": "clang-cl-debug",
+      "configurePreset": "clang-cl-debug"
     }
   ]
 }
